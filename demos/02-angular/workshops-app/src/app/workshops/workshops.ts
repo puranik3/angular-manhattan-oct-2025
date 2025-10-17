@@ -12,7 +12,11 @@ export class Workshops {
         // this.http = http;
     }
 
-    getWorkshops() {
-        return this.http.get<IWorkshop[]>(`https://workshops-server.onrender.com/workshops/`);
+    getWorkshops(page: number = 1) {
+        return this.http.get<IWorkshop[]>(`https://workshops-server.onrender.com/workshops`, {
+            params: {
+                _page: page,
+            },
+        });
     }
 }
