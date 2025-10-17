@@ -1,1 +1,29 @@
-<p>workshops-list works!</p>
+<!-- @if ( loading ) {
+    <div>Loading data...</div>
+}
+@if( !loading && error ) {
+    <div>{{ error.message }}</div>
+}
+
+@if ( !loading && workshops ) {
+    <div>Number of workshops = {{ workshops.length }}</div>
+} -->
+
+<div *ngIf="loading">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!loading && error">
+    <ngb-alert type="danger">{{ error.message }}</ngb-alert>
+</div>
+
+<div *ngIf="!loading && workshops">
+    <!-- Explore use of *ngFor directive (old way) -->
+    @for ( workshop of workshops; track workshop.id ) {
+    <div>{{ workshop.name }}</div>
+    }
+</div>
