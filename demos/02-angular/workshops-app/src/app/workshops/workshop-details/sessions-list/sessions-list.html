@@ -13,7 +13,7 @@
 <ul class="list-group">
     @for( s of sessions; track s.id ) {
     <li class="list-group-item">
-        <app-item [session]="s" />
+        <app-item [session]="s" (vote)="updateVote(s, $event)" />
     </li>
     }
 </ul>

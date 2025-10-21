@@ -20,8 +20,6 @@ export class SessionsList implements OnInit {
     workshopId!: number;
     sessions!: ISession[];
 
-    private toastService = inject(ToastService);
-
     constructor(private sessionsService: Sessions, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
@@ -40,5 +38,16 @@ export class SessionsList implements OnInit {
                 this.loading = false;
             },
         });
+    }
+
+    updateVote(session: ISession, by: number) {
+        this.sessionsService
+            .voteForSession(session.id, by === 1 ? 'upvote' : 'downvote')
+            .subscribe({
+                next: (updatedSession) => {
+                    session.upvoteCount = updatedSession.upvoteCount;
+                },
+                // @todo handle error
+            });
     }
 }
