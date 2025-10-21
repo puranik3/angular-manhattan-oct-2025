@@ -16,7 +16,10 @@
 <app-error-alert [err]="error" [loading]="loading"></app-error-alert>
 
 <div *ngIf="!loading && workshops">
-    
+    <app-pagination
+        [page]="page"
+        (pageChange)="changePage($event)"
+    ></app-pagination>
 
     <div class="row">
         <!-- Explore use of *ngFor directive (old way) -->

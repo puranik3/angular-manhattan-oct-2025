@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-pagination',
@@ -10,5 +10,10 @@ export class Pagination {
     @Input()
     page!: number;
 
-    changePage(by: number) {}
+    @Output()
+    pageChange = new EventEmitter<number>();
+
+    changePage(by: number) {
+        this.pageChange.emit(by); // pass on info to the parent component
+    }
 }
