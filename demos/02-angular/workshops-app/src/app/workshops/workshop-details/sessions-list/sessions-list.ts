@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Sessions } from '../../sessions';
 import ISession from '../../models/ISession';
-import { Toast as ToastService } from '../../../common/toast';
 
 import { LoadingSpinner } from '../../../common/loading-spinner/loading-spinner';
 import { ErrorAlert } from '../../../common/error-alert/error-alert';
