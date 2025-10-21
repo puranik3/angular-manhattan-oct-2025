@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { LoadingSpinner } from '../../common/loading-spinner/loading-spinner';
 import { ErrorAlert } from '../../common/error-alert/error-alert';
@@ -11,7 +12,7 @@ import { Pagination } from '../../common/pagination/pagination';
 
 @Component({
     selector: 'app-workshops-list',
-    imports: [CommonModule, LoadingSpinner, ErrorAlert, Item, Pagination ],
+    imports: [CommonModule, LoadingSpinner, ErrorAlert, Item, Pagination, FormsModule ],
     templateUrl: './workshops-list.html',
     styleUrl: './workshops-list.scss',
 })
@@ -21,6 +22,12 @@ export class WorkshopsList implements OnInit {
     loading = true;
 
     page = 1;
+
+    // what has the user typed in the search input box
+    filterKey = '';
+
+    // subset of workshops to show
+    filteredWorkshops! : IWorkshop[];
 
     constructor(
         private w: Workshops,
@@ -34,6 +41,10 @@ export class WorkshopsList implements OnInit {
         this.w.getWorkshops(this.page).subscribe({
             next: (workshops) => {
                 this.workshops = workshops;
+
+                // initially we show all workshops
+                this.filteredWorkshops = workshops;
+
                 this.loading = false;
             },
             error: (error) => {
@@ -71,9 +82,28 @@ export class WorkshopsList implements OnInit {
         // this.getWorkshops();
 
         // set the query string in the route
-        this.router.navigate(['/workshops'], {
-            queryParams: {
-                page: this.page,
+        this.router.navigate(
+            [ '/workshops' ],
+            {
+                queryParams: {
+                    page: this.page,
+                },
+            }
+        );
+    }
+
+    filterWorkshops() {
+        this.filteredWorkshops = this.workshops.filter(
+            w => w.name.toUpperCase().includes( this.filterKey.toUpperCase() )
+        );
+    }
+
+    filterByCategory(category: string) {
+        this.w.getWorkshops(this.page, category).subscribe({
+            next: (workshops) => {
+                this.workshops = workshops;
+                // A better alternative: If you make `this.workshops` and `this.filterKey` as signals, you can compute `this.filteredWorkshops` automatically when either `this.workshops` changes or `this.filterKey` changes
+                this.filterWorkshops();
             },
         });
     }

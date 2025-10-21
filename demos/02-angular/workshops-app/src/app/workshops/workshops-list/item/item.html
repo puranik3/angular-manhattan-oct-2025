@@ -14,9 +14,10 @@
                 {{ workshop.location | location : 40 }}
             </div>
         </div>
+        <!-- [routerLink]="['/workshops', workshop.id]" -->
         <a
             class="btn btn-primary btn-sm mt-4"
-            [routerLink]="[workshop.id]"
+            [routerLink]="[ workshop.id]"
             [attr.aria-label]="'Know more about ' + workshop.name"
             >Know more</a
         >
