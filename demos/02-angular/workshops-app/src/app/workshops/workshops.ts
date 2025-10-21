@@ -26,4 +26,10 @@ export class Workshops {
             params,
         });
     }
+
+    getWorkshopById(workshopId: number) {
+        return this.http.get<IWorkshop>(
+            `https://workshops-server.onrender.com/workshops/${workshopId}`
+        );
+    }
 }
