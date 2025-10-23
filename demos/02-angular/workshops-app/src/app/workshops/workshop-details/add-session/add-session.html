@@ -1,33 +1,14 @@
 <div class="d-flex justify-content-between align-items-center">
     <h2 class="my-3">Add a session</h2>
-    <button class="btn btn-primary" id="list-sessions" [routerLink]="['..']">
-        List of sessions
-    </button>
+    <button class="btn btn-primary" id="list-sessions">List of sessions</button>
 </div>
 
 <hr />
 
-<form id="add-session-form" #addSessionForm="ngForm" (ngSubmit)="addSession(addSessionForm)">
+<form id="add-session-form" [formGroup]="addSessionForm">
     <div class="mb-3">
         <label for="sequenceId" class="form-label">Sequence ID</label>
-        <input
-            type="text"
-            class="form-control"
-            id="sequenceId"
-            name="sequenceId"
-            required
-            pattern="\d+"
-            ngModel
-            autocomplete="off"
-            #sequenceId="ngModel"
-        />
-        <!-- Note how the JSON pipe is used for inspecting objects and thus useful for debugging! -->
-        <!-- {{ sequenceId.errors | json }}
-        {{ sequenceId.value }}
-        <div>{{ 'sequenceId.invalid = ' + sequenceId.invalid }}</div>
-        <div>{{ 'sequenceId.valid = ' + sequenceId.valid }}</div>
-        <div>{{ 'sequenceId.dirty =' + sequenceId.dirty }}</div>
-        <div>{{ 'sequenceId.touched =' + sequenceId.touched }}</div> -->
+        <input type="text" class="form-control" id="sequenceId" formControlName="sequenceId" />
 
         @if( sequenceId.invalid && ( sequenceId.touched || sequenceId.dirty ) && sequenceId.errors )
         {
@@ -42,19 +23,19 @@
     </div>
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" ngModel name="name" #name="ngModel" />
+        <input type="text" class="form-control" id="name" formControlName="name" />
     </div>
     <div class="mb-3">
         <label for="speaker" class="form-label">Speaker</label>
-        <input type="text" class="form-control" id="speaker" name="speaker" ngModel />
+        <input type="text" class="form-control" id="speaker" formControlName="speaker" />
     </div>
     <div class="mb-3">
         <label for="duration" class="form-label">Duration</label>
-        <input type="number" class="form-control" id="duration" name="duration" ngModel />
+        <input type="number" class="form-control" id="duration" formControlName="duration" />
     </div>
     <div class="mb-3">
         <label for="level" class="form-label">Level</label>
-        <select class="form-select" id="level" name="level" ngModel>
+        <select class="form-select" id="level" formControlName="level">
             <option value="Basic">Basic</option>
             <option value="Intermediate">Intermediate</option>
             <option value="Advanced">Advanced</option>
@@ -62,11 +43,9 @@
     </div>
     <div class="mb-3">
         <label for="abstract" class="form-label">Abstract</label>
-        <textarea class="form-control" id="abstract" rows="3" name="abstract" ngModel></textarea>
+        <textarea class="form-control" id="abstract" rows="3" formControlName="abstract"></textarea>
     </div>
     <div class="mb-3">
-        <button class="btn btn-primary" type="submit" [disabled]="addSessionForm.invalid">
-            Add session
-        </button>
+        <button class="btn btn-primary">Add session</button>
     </div>
 </form>
