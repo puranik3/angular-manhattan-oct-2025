@@ -7,7 +7,7 @@
 
 <hr />
 
-<form id="add-session-form" #addSession>
+<form id="add-session-form" #addSessionForm="ngForm" (ngSubmit)="addSession(addSessionForm)">
     <div class="mb-3">
         <label for="sequenceId" class="form-label">Sequence ID</label>
         <input
@@ -42,19 +42,19 @@
     </div>
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" #name="ngModel" />
+        <input type="text" class="form-control" id="name" ngModel name="name" #name="ngModel" />
     </div>
     <div class="mb-3">
         <label for="speaker" class="form-label">Speaker</label>
-        <input type="text" class="form-control" id="speaker" />
+        <input type="text" class="form-control" id="speaker" name="speaker" ngModel />
     </div>
     <div class="mb-3">
         <label for="duration" class="form-label">Duration</label>
-        <input type="number" class="form-control" id="duration" />
+        <input type="number" class="form-control" id="duration" name="duration" ngModel />
     </div>
     <div class="mb-3">
         <label for="level" class="form-label">Level</label>
-        <select class="form-select" id="level">
+        <select class="form-select" id="level" name="level" ngModel>
             <option value="Basic">Basic</option>
             <option value="Intermediate">Intermediate</option>
             <option value="Advanced">Advanced</option>
@@ -62,9 +62,11 @@
     </div>
     <div class="mb-3">
         <label for="abstract" class="form-label">Abstract</label>
-        <textarea class="form-control" id="abstract" rows="3"></textarea>
+        <textarea class="form-control" id="abstract" rows="3" name="abstract" ngModel></textarea>
     </div>
     <div class="mb-3">
-        <button class="btn btn-primary" type="submit">Add session</button>
+        <button class="btn btn-primary" type="submit" [disabled]="addSessionForm.invalid">
+            Add session
+        </button>
     </div>
 </form>
