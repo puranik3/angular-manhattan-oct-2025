@@ -7,15 +7,42 @@
 
 <hr />
 
-<form id="add-session-form">
+<form id="add-session-form" #addSession>
     <div class="mb-3">
         <label for="sequenceId" class="form-label">Sequence ID</label>
-        <input type="text" class="form-control" id="sequenceId" />
-        <div class="error-message"></div>
+        <input
+            type="text"
+            class="form-control"
+            id="sequenceId"
+            name="sequenceId"
+            required
+            pattern="\d+"
+            ngModel
+            autocomplete="off"
+            #sequenceId="ngModel"
+        />
+        <!-- Note how the JSON pipe is used for inspecting objects and thus useful for debugging! -->
+        <!-- {{ sequenceId.errors | json }}
+        {{ sequenceId.value }}
+        <div>{{ 'sequenceId.invalid = ' + sequenceId.invalid }}</div>
+        <div>{{ 'sequenceId.valid = ' + sequenceId.valid }}</div>
+        <div>{{ 'sequenceId.dirty =' + sequenceId.dirty }}</div>
+        <div>{{ 'sequenceId.touched =' + sequenceId.touched }}</div> -->
+
+        @if( sequenceId.invalid && ( sequenceId.touched || sequenceId.dirty ) && sequenceId.errors )
+        {
+        <div class="error-message">
+            @if(sequenceId.errors['required']) {
+            <div>This is required</div>
+            } @if(sequenceId.errors['pattern']) {
+            <div>Provide a number</div>
+            }
+        </div>
+        }
     </div>
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" />
+        <input type="text" class="form-control" id="name" #name="ngModel" />
     </div>
     <div class="mb-3">
         <label for="speaker" class="form-label">Speaker</label>
