@@ -153,6 +153,25 @@
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/512px-Angular_full_color_logo.svg.png"
     },
     {
+      "name": "Bootstrap Bootcamp",
+      "category": "frontend",
+      "id": 9,
+      "description": "<p><strong>Bootstrap</strong> is a front-end web framework that provides useful styles and components for creating responsive web pages quickly. Bootstrap v4 is the latest stable version of this framework and is covered in this bootcamp.</p>",
+      "startDate": "2019-12-12T04:00:00.000Z",
+      "endDate": "2019-12-14T08:00:00.000Z",
+      "time": "9:00 am - 5:00 pm",
+      "location": {
+        "address": "SAP Labs, Whitefield",
+        "city": "Bangalore",
+        "state": "Karnataka"
+      },
+      "modes": {
+        "inPerson": true,
+        "online": false
+      },
+      "imageUrl": "https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-solid.svg"
+    },
+    {
       "name": "Apache Cordova",
       "category": "mobile",
       "id": 10,

@@ -1,0 +1,91 @@
+<ng-container *ngIf="workshop$ | async as workshop; else loadingTpl">
+    <ng-container *ngIf="workshop; else errorTpl">
+        <h1>{{ workshop.name }}</h1>
+        <hr />
+
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <img [src]="workshop.imageUrl" [alt]="workshop.name" class="img-fluid" />
+            </div>
+
+            <div class="col-12 col-md-8">
+                <div class="my-3">
+                    <div>{{ workshop.time }}</div>
+                    <div>
+                        {{ workshop.startDate | date : 'EEEE, MMMM d, y' }} -
+                        {{ workshop.endDate | date : 'EEEE, MMMM d, y' }}
+                    </div>
+
+                    <div>{{ workshop.location | location }}</div>
+
+                    <div>
+                        <span
+                            class="me-4"
+                            [ngClass]="{
+                                'text-success': workshop.modes.inPerson,
+                                'text-danger': !workshop.modes.inPerson
+                            }"
+                        >
+                            <fa-icon
+                                [icon]="
+                                    workshop.modes.inPerson
+                                        ? icons.faCheckCircle
+                                        : icons.faTimesCircle
+                                "
+                            ></fa-icon>
+                            In person
+                        </span>
+
+                        <span
+                            [ngClass]="{
+                                'text-success': workshop.modes.online,
+                                'text-danger': !workshop.modes.online
+                            }"
+                        >
+                            <fa-icon
+                                [icon]="
+                                    workshop.modes.online
+                                        ? icons.faCheckCircle
+                                        : icons.faTimesCircle
+                                "
+                            ></fa-icon>
+                            Online
+                        </span>
+                    </div>
+                </div>
+
+                <div [innerHTML]="workshop.description"></div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <button
+                [routerLink]="['/workshops', workshop.id]"
+                routerLinkActive="btn-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="btn btn-primary btn-sm btn-child-link me-2"
+            >
+                Sessions List
+            </button>
+
+            <button
+                [routerLink]="['/workshops', workshop.id, 'add']"
+                routerLinkActive="btn-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="btn btn-primary btn-sm btn-child-link"
+            >
+                Add a session
+            </button>
+        </div>
+
+        <router-outlet></router-outlet>
+    </ng-container>
+</ng-container>
+
+<ng-template #loadingTpl>
+    <app-loading-spinner variant="success"></app-loading-spinner>
+</ng-template>
+
+<ng-template #errorTpl>
+    <app-error-alert [err]="error"></app-error-alert>
+</ng-template>
